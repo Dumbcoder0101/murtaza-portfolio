@@ -137,24 +137,27 @@ const quotes = [
   "Creativity is loading... Please hold."
 ];
 
-let progress = 0;
 const progressBar = document.querySelector('.progress');
 const quoteElement = document.getElementById('quote');
+const wrapper = document.getElementById('wrapper'); // Main content wrapper
 
+let progress = 0;
+
+// Function to update the quote dynamically
 function updateQuote() {
-  // Change the quote dynamically
   const randomIndex = Math.floor(Math.random() * quotes.length);
   quoteElement.textContent = quotes[randomIndex];
   quoteElement.style.opacity = 1; // Show the quote
 }
 
+// Function to simulate loading
 function simulateLoading() {
   const interval = setInterval(() => {
-      progress += 5; // Increase progress by 5%
-      progressBar.style.width = `${progress}%`;
+      progress += 2; // Increment progress
+      progressBar.style.width = `${progress}%`; // Update progress bar width
       
       // Update quote every 1 second
-      if (progress % 20 === 0) {
+      if (progress % 20 === 0 && progress <= 100) {
           updateQuote();
       }
 
@@ -162,13 +165,12 @@ function simulateLoading() {
       if (progress >= 100) {
           clearInterval(interval);
           setTimeout(() => {
-              // Hide loader or redirect to your main content
+              // Hide the loader and show main content
               document.getElementById('preloader').style.display = 'none';
-              // Optionally, load your main content here
-              document.body.innerHTML += "<h1>Welcome to My Website!</h1>";
-          }, 1000);
+              wrapper.style.display = 'block'; // Show the wrapper (main content)
+          }, 1000); // Optional delay before showing main content
       }
-  }, 200); // Update every 200ms
+  }, 100); // Update every 100ms
 }
 
 // Start the loading simulation

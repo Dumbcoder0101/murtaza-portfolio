@@ -6719,7 +6719,7 @@ i.font60 {
     text-align: center;
 }
 
-.dark-scheme #preloader{
+.dark-scheme #preloader {
     background: #171A1D;
 }
 
@@ -6745,25 +6745,39 @@ i.font60 {
     margin-top: -25px;
 }
 
+.progress-bar {
+    width: 80%;
+    background-color: #e0e0e0;
+    border-radius: 25px;
+    overflow: hidden;
+    margin: 20px auto;
+    height: 30px;
+}
+
+.progress {
+    width: 0;
+    height: 100%;
+    background-color: #4caf50;
+    border-radius: 25px;
+}
+
+.quote {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
 @keyframes preloader1 {
     from {
         transform: rotate(0deg);
     }
-
     to {
         transform: rotate(360deg);
     }
 }
 
-@-webkit-keyframes preloader1 {
-    from {
-        -webkit-transform: rotate(0deg);
-    }
-
-    to {
-        -webkit-transform: rotate(360deg);
-    }
-}
 
 /* progress bar */
 
@@ -18320,9 +18334,3 @@ img {
         top: -21px;
     }
 }
-
-/*
-#purchase-now, #selector, #back-to-top{
-    display: none;
-}
-*/

@@ -1,6 +1,3 @@
-/* -----------------------------------------------
-/* How to use? : Check the GitHub README
-/* ----------------------------------------------- */
 
 /* To load a config file (particles.json) you need to host this demo (MAMP/WAMP/local)... */
 /*
@@ -131,3 +128,48 @@ particlesJS('particles-js',
   }
 
 );
+
+const quotes = [
+  "With great power comes great responsibility... and a hefty electricity bill.",
+  "Loading wisdom... Hold on tight!",
+  "Good things come to those who hustle... and refresh!",
+  "Ideas are like electricity... powerful and illuminating!",
+  "Creativity is loading... Please hold."
+];
+
+let progress = 0;
+const progressBar = document.querySelector('.progress');
+const quoteElement = document.getElementById('quote');
+
+function updateQuote() {
+  // Change the quote dynamically
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  quoteElement.textContent = quotes[randomIndex];
+  quoteElement.style.opacity = 1; // Show the quote
+}
+
+function simulateLoading() {
+  const interval = setInterval(() => {
+      progress += 5; // Increase progress by 5%
+      progressBar.style.width = `${progress}%`;
+      
+      // Update quote every 1 second
+      if (progress % 20 === 0) {
+          updateQuote();
+      }
+
+      // Stop the loading simulation at 100%
+      if (progress >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+              // Hide loader or redirect to your main content
+              document.getElementById('preloader').style.display = 'none';
+              // Optionally, load your main content here
+              document.body.innerHTML += "<h1>Welcome to My Website!</h1>";
+          }, 1000);
+      }
+  }, 200); // Update every 200ms
+}
+
+// Start the loading simulation
+simulateLoading();

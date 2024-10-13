@@ -1,52 +1,39 @@
+// Quotes array for loading messages
 const quotes = [
-    "With great power comes great responsibility... and a hefty electricity bill.",
-    "Loading wisdom... Hold on tight!",
-    "Good things come to those who hustle... and refresh!",
-    "Ideas are like electricity... powerful and illuminating!",
-    "Creativity is loading... Please hold."
+    "with great power, comes the great electricity bill...",
+    "Why do programmers prefer dark mode? Because light attracts bugs!",
+"Code is like humor. When you have to explain it, it’s bad.",
+    "If at first you don’t succeed, call it version 1.0."
 ];
 
-const progressBar = document.querySelector('.progress');
-const quoteElement = document.getElementById('quote');
-
-let progress = 0;
-
-// Function to update the quote dynamically
-function updateQuote() {
+// Function to display a random quote
+function displayRandomQuote() {
+    const quoteElement = document.getElementById("quote");
     const randomIndex = Math.floor(Math.random() * quotes.length);
     quoteElement.textContent = quotes[randomIndex];
-    quoteElement.style.opacity = 1; // Show the quote
 }
 
-// Function to simulate loading
+// Function to simulate progress bar filling and content loading
 function simulateLoading() {
-    const interval = setInterval(() => {
-        if (progress < 100) {
-            progress += 2; // Increment progress by 2% for each update
-            progressBar.style.width = `${progress}%`; // Update progress bar width
+    const progressBar = document.querySelector(".progress");
+    const preloader = document.getElementById("preloader");
+    let progress = 0;
+    let loadingDuration = Math.random() * 5000 + 5000; // Random duration between 5s and 10s
 
-            // Update quote every 20% of progress
-            if (progress % 20 === 0 && progress <= 100) {
-                updateQuote();
-            }
+    const loadingInterval = setInterval(() => {
+        if (progress < 100) {
+            progress += 1; // Increment progress
+            progressBar.style.width = progress + "%"; // Update progress bar width
         } else {
-            clearInterval(interval);
+            clearInterval(loadingInterval); // Stop loading when 100%
+            setTimeout(() => {
+                preloader.classList.add('hidden'); // Hide preloader
+                document.getElementById("wrapper").style.display = "block"; // Show main content
+            }, 500); // Short delay to allow the fade out
         }
-    }, 100); // Update every 100ms
+    }, loadingDuration / 100); // Adjust interval speed based on total duration
 }
 
-// Start the loading simulation
+// Start the loader and display a quote
+displayRandomQuote();
 simulateLoading();
-
-// Start a timer to determine the loading time
-const loadingStart = Date.now();
-const loadingInterval = setInterval(() => {
-    const loadingTime = Math.floor((Date.now() - loadingStart) / 1000); // in seconds
-
-    // Only hide the preloader once loading is complete (when progress reaches 100%)
-    if (progress >= 100) {
-        clearInterval(loadingInterval);
-        document.getElementById('preloader').style.display = 'none';
-        alert('Website Loaded!'); // Replace this with your actual content display logic
-    }
-}, 100); // Check every 100ms

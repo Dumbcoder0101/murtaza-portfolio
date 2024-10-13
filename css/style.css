@@ -6734,6 +6734,7 @@ body {
     overflow: hidden;
     margin: 20px 0; /* Spacing above and below */
     height: 30px; /* Height of the progress bar */
+    position: relative; /* Required for the liquid effect */
 }
 
 .progress {
@@ -6741,7 +6742,16 @@ body {
     height: 100%; /* Fill the full height of the progress bar */
     background-color: red; /* Red color for the progress */
     border-radius: 25px; /* Round the corners */
-    transition: width 0.5s; /* Smooth transition for the progress */
+    animation: fill 1s linear forwards; /* Animation for filling */
+}
+
+@keyframes fill {
+    0% {
+        transform: translateY(100%); /* Start from bottom */
+    }
+    100% {
+        transform: translateY(0); /* Fill to top */
+    }
 }
 
 .quote {

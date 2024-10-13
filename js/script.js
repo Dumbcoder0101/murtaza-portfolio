@@ -21,25 +21,32 @@ function updateQuote() {
 // Function to simulate loading
 function simulateLoading() {
     const interval = setInterval(() => {
-        progress += 2; // Increment progress by 2% for each update
-        progressBar.style.width = `${progress}%`; // Update progress bar width
-        
-        // Update quote every 20% of progress
-        if (progress % 20 === 0 && progress <= 100) {
-            updateQuote();
-        }
+        if (progress < 100) {
+            progress += 2; // Increment progress by 2% for each update
+            progressBar.style.width = `${progress}%`; // Update progress bar width
 
-        // Stop the loading simulation at 100%
-        if (progress >= 100) {
+            // Update quote every 20% of progress
+            if (progress % 20 === 0 && progress <= 100) {
+                updateQuote();
+            }
+        } else {
             clearInterval(interval);
-            setTimeout(() => {
-                // Optionally, you can redirect or display a message here
-                alert('Website Loaded!'); // Just for demonstration
-                // You could also navigate to another page or show actual content
-            }, 500); // Delay before showing content
         }
     }, 100); // Update every 100ms
 }
 
 // Start the loading simulation
 simulateLoading();
+
+// Start a timer to determine the loading time
+const loadingStart = Date.now();
+const loadingInterval = setInterval(() => {
+    const loadingTime = Math.floor((Date.now() - loadingStart) / 1000); // in seconds
+
+    // Only hide the preloader once loading is complete (when progress reaches 100%)
+    if (progress >= 100) {
+        clearInterval(loadingInterval);
+        document.getElementById('preloader').style.display = 'none';
+        alert('Website Loaded!'); // Replace this with your actual content display logic
+    }
+}, 100); // Check every 100ms
